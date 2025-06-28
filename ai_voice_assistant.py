@@ -1,7 +1,7 @@
 #final one 
 import streamlit as st
 import tempfile
-import whisperx
+from faster_whisper import WhisperModel
 from fpdf import FPDF
 import google.generativeai as genai
 from datetime import datetime
@@ -86,16 +86,9 @@ def process_uploaded_files():
 
 def transcribe_audio():
     with st.spinner("Transcribing audio..."):
-        model = whisperx.load_model("base.en", device="cpu", compute_type="float32")
-        result = model.transcribe(st.session_state.audio_path)
-        aligned_result = whisperx.align(
-            result["segments"],
-            whisperx.load_align_model("en", device="cpu")[0],
-            whisperx.load_align_model("en", device="cpu")[1],
-            whisperx.load_audio(st.session_state.audio_path),
-            device="cpu"
-        )
-        transcription = "\n".join(f"[{seg['start']:.2f}s] {seg['text']}" for seg in aligned_result["segments"])
+        model = WhisperModel("base", device="cpu", compute_type="int8")
+        segments, _ = model.transcribe(st.session_state.audio_path)
+        transcription = "\n".join(f"[{seg.start:.2f}s] {seg.text}" for seg in segments)
         st.session_state.original_transcription = transcription
         return transcription
 
