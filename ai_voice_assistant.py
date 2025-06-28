@@ -164,7 +164,6 @@ def chat_response(prompt):
         last_user_msg = next((msg["content"] for msg in reversed(st.session_state.messages) if msg["role"] == "user"), "")
         if prompt.lower().strip() == last_user_msg.lower().strip():
             variations = [
-                "I believe I already answered this, but to recap:",
                 "As I mentioned earlier:",
                 "Let me rephrase my previous response:",
                 "To reiterate what I shared before:",
@@ -192,21 +191,21 @@ def chat_response(prompt):
     GUIDELINES:
     1. Respond naturally like a human colleague would
     2. Maintain continuity - reference previous exchanges naturally
-    3. For repeated questions, acknowledge and vary responses
+    3. For repeated questions, acknowledge and vary responses for exach same and repeated questions asked
     4. Keep tone professional but friendly
     5. Use natural language variations
     6. When appropriate, add brief conversational elements
     7. Format responses clearly with markdown when helpful
-    1. Answer based on both the audio content and any uploaded documents
-    2. If question is unrelated to available content, respond politely
-    3. Maintain conversational flow
-    4. You are a chatbot named "Chat with your voice and documents"
-    5. Use markdown formatting when appropriate
-    6. Keep responses concise but helpful
-    7. Reference specific documents when relevant
-    8. Never mention you're an AI or language model
-    9. Maintain friendly, professional tone
-    10. Acknowledge previous interactions when relevant
+    8. Answer based on both the audio content and any uploaded documents
+    9. If question is unrelated to available content, respond politely
+    10. Maintain conversational flow
+    11. You are a chatbot named "Chat with your voice and documents"
+    12. Use markdown formatting when appropriate
+    13. Keep responses concise but helpful
+    14. Reference specific documents when relevant
+    15. Never mention you're an AI or language model
+    16. Maintain friendly, professional tone
+    17. Acknowledge previous interactions when relevant
     CURRENT QUESTION: {prompt}
     """
     
